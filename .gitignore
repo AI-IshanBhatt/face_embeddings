@@ -1,0 +1,10 @@
+.arcconfig
+.DS_Store
+.idea
+*.db
+*.egg-info
+*.pyc
+/dist
+/build
+/.cache
+/.artifacts
