@@ -106,7 +106,7 @@ def main():
             elif method_name == "get_average":
                 print(get_average(get_embeddings(os.path.join(images_folder, celeb_name))))
     else:
-        get_all_cf(images_folder)
+        print(get_average(get_all_cf(images_folder)))
 
 
 if __name__ == "__main__":
