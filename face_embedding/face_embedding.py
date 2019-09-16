@@ -134,7 +134,8 @@ def similarity_index(images_folder: str, celeb1: str, celeb2: str) -> float:
                 if result.size:
                     all_results.append(future.result())
             if len(all_results) == 2:
-                return f"Similarity index is {np.linalg.norm(all_results[1] - all_results[0]): .3f}"
+                return f"Similarity index between {celeb1} and {celeb2 } is " \
+                    f"{np.linalg.norm(all_results[1] - all_results[0]): .3f}"
             else:
                 return "One of the celebrity's face embeddings were not found"
 

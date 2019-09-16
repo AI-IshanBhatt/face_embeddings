@@ -1,0 +1,21 @@
+There are some bottlenecks in the development environment that needs some addressing.
+
+As it is only one system we are bounded by number of processors(as it is cpu bound task) to do the processing.
+
+If we have K8s cluster with us, we can do some Map-Reduce type calculations to do calculations more in parallel.
+
+The Approach:-
+    1. Create an AWS EKS cluster with expected nodes and podes.
+    2. Upload the dataset on S3
+    3. Have an AWS lambda function that
+        1. Gets triggered when there is a new dataset is uploaded
+        2. Divides the dataset based on the cluster configuration mentioned in step 1
+        3. Put those distribution messages on SQS queue
+    4. Pods fetches the messages from SQS queue and download the folders from S3 or have a volume mount on S3
+    5. Start finding those embedded vectors in pods.
+    6. Somehow(another lambda, SNS notification) trigger a reducer that computes the average once all pods are done.
+
+But such approach comes with it's own challenges as described below.
+    1. Managing workloads across the fleet of compute nodes.
+    2. As it is CPU bound task we need to make sure 1 pod/1 Node otherwise pods fighting for CPU will make matter worse.
+    3. The cost of managing nodes should not be ignored as well.
