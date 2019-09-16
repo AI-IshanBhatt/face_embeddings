@@ -63,6 +63,7 @@ def get_all_cf(root_path: str, no_of_processors=None) -> np.ndarray:
     :param no_of_processors: no of processors to be used by multiprocessing
     :return: Face_embedding vectors of all images
     """
+    root_path = root_path if root_path.endswith("/") else root_path+"/"
     directories = glob.glob(f"{root_path}*")
     all_result = []
 
