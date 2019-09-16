@@ -1,13 +1,17 @@
+## Approach
+
 This file describes the approach I took for the solution.
 
 As, this is a dataset which has many folders in which the actual images reside there is a great chance to solve the task in parallel.
 Now the choice comes between multi-threading or processing and it depends on what is the type of the task is it CPU bound or IO bound.
 
 After seeing those timeit results(below) it was quite conclusive that it is a CPU bound task.
-1.	python -m timeit -s "import face_recognition" -n 300 "pic=face_recognition.load_image_file('/home/ishanbhatt/Celeb_Test_Images/CR3.jpg')"
+```
+python -m timeit -s "import face_recognition" -n 300 "pic=face_recognition.load_image_file('/home/ishanbhatt/Celeb_Test_Images/CR3.jpg')"
 	300 loops, best of 3: 15.9 msec per loop
-2.  python -m timeit -s "import face_recognition;pic=face_recognition.load_image_file('/home/ishanbhatt/Celeb_Test_Images/CR3.jpg')" -n 20 "encodings = face_recognition.face_encodings(pic)"
+python -m timeit -s "import face_recognition;pic=face_recognition.load_image_file('/home/ishanbhatt/Celeb_Test_Images/CR3.jpg')" -n 20 "encodings = face_recognition.face_encodings(pic)"
 	20 loops, best of 3: 795 msec per loop
+```
 
 So, I chose multiprocessing to do the stuff.
 In that I had 2 choices as well
@@ -18,14 +22,15 @@ In that I had 2 choices as well
 I chose concurrent futures because it is easier and very self explanatory.
 Submit the tasks in the pool and get results as completed.
 
-It's critical that you choose number of processors wisely.
+**It's critical that you choose number of processors wisely.
 A low number would hamper parallelism and a very higher number would not guarantee a great performance.
-I chose whatever processors available - 1.
+I chose whatever processors available - 1.**
 
 I also added tqdm in the mix so that user gets the idea how much processing is done.
 
 Also, there were some images for which face_encodings could not find face so returned empty encoding vector. I have ignored such images from our average calculations.
 Following are those images.
+
 	Dale_Earnhardt_Jr/Dale_Earnhardt_Jr_0003.jpg IGNORING
 	James_McGreevey/James_McGreevey_0002.jpg IGNORING
 	Thomas_Birmingham/Thomas_Birmingham_0002.jpg IGNORING
@@ -90,6 +95,7 @@ Following are those images.
 	Kultida_Woods/Kultida_Woods_0001.jpg IGNORING
 
 And the output of rest of the images is as below.
+```
 [-0.09184992  0.08891897  0.05172213 -0.03960983 -0.09545069 -0.0170844
  -0.01534049 -0.10618818  0.13509281 -0.05730249  0.20093566 -0.0379245
  -0.24540257 -0.04531504 -0.02827422  0.12434066 -0.14732012 -0.1192862
@@ -112,3 +118,4 @@ And the output of rest of the images is as below.
   0.21515246  0.17408757 -0.00231636  0.1254312   0.06280041  0.06165447
  -0.00458359 -0.00511429 -0.13308913 -0.10946756  0.02851165 -0.02758148
   0.02185735  0.03925822]
+```
