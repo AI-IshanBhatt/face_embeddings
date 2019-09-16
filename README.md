@@ -96,4 +96,4 @@ Similarity index between Jack_Nicholson and James_Baker is  1.206
 ```
 
 # Other
-There are some assumptions and workarounds ,you can find them in NOTES.txt. 
+There are some assumptions and workarounds ,you can find them in Report and Performance Improvements. 
