@@ -19,3 +19,12 @@ But such approach comes with it's own challenges as described below.
     1. Managing workloads across the fleet of compute nodes.
     2. As it is CPU bound task we need to make sure 1 pod/1 Node otherwise pods fighting for CPU will make matter worse.
     3. The cost of managing nodes should not be ignored as well.
+
+Some approaches using Lambda and DynamoDB
+Fan-out, Fan-In Techniques
+https://theburningmonk.com/2018/04/how-to-do-fan-out-and-fan-in-with-aws-lambda/ (Fan-In, Fan-Out)
+https://dev.to/byrro/crash-course-on-fan-out-fan-in-with-aws-lambda-47g0
+https://stackoverflow.com/questions/58089116/aws-lambda-fan-in-strategy (Suggests Step-Functions)
+https://aws.amazon.com/blogs/compute/resize-images-on-the-fly-with-amazon-s3-aws-lambda-and-amazon-api-gateway/
+https://subscription.packtpub.com/book/application_development/9781788623797/9/ch09lvl1sec75/fan-in-and-fan-out-architectural-patterns-with-aws
+(Also check the book Serverless Programming Cookbook)
